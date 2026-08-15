@@ -1,52 +1,44 @@
-# DeepSeek Harness Release Work
+# DeepSeek Harness v1.0.0 Windows
 
-This directory is a copied release workspace. The original package at `J:\测试\DeepSeekHarness` was not modified.
+## 中文
 
-## Generated Packages
+这是 DeepSeek Harness 的 Windows 安装包发行版本。普通用户只需要下载 `DeepSeekHarness-Setup.exe`，双击后跟随安装向导点击下一步即可完成安装。
 
-- `dist\DeepSeekHarness-portable.zip`: portable Windows package containing `Harness.exe`, `node_modules`, and `plugin-config.example.json`.
-- `dist\DeepSeekHarness-SetupPayload.cab`: Windows setup payload containing the portable ZIP and installer script. IExpress did not emit a final `Setup.exe` on this machine.
+### 本版本包含
 
-Run:
+- 标准 Windows 安装向导：`DeepSeekHarness-Setup.exe`
+- 自动复制 `Harness.exe` 和运行所需文件
+- 自动创建桌面快捷方式和开始菜单入口
+- 注册 Windows 卸载入口
+- 提供 `plugin-config.example.json`，用于说明图片自动分析插件的用户 API 配置方向
+- 提供脱敏后的安装、构建、安全和发布文档
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\packaging\build-release.ps1
-```
+### 推荐安装方式
 
-## MSI
+1. 下载 `DeepSeekHarness-Setup.exe`。
+2. 双击安装包。
+3. 按向导选择安装目录。
+4. 保留桌面快捷方式选项。
+5. 点击完成后启动 `DeepSeek Harness`。
 
-This machine does not currently have WiX Toolset, MSBuild, or another MSI builder on PATH. Generate MSI from the same portable payload after installing WiX or building on CI. The MSI should install the ZIP payload to the selected install directory and create a shortcut to `Harness.exe`.
+### 关于来源和用途
 
-## APK and macOS
+本项目基于已打包成功的 DeepSeek Harness Windows 版本整理而来，目的是让用户可以像安装普通 Windows 软件一样使用 DeepSeek 客户端。DeepSeek 官方主要提供网页端体验，本项目补齐桌面端安装入口，并保留图片自动分析插件的扩展方向：用户在聊天时上传图片，由插件先完成图像分析，再继续使用 DeepSeek 模型对话。
 
-The current app is a Windows Rust WebView2 shell around a Node service. APK and macOS packages require platform-specific application shells:
+本仓库不是 DeepSeek 官方项目，也不是 DeepSeek Harness 的完整上游源码仓库。
 
-- Android: a native Android/WebView or Tauri mobile wrapper, plus Node-compatible backend strategy.
-- macOS: build the Rust shell on macOS with a macOS WebView backend and package as `.app`/`.dmg`/`.pkg`.
+### 关于 API Key
 
-They cannot be produced correctly from this Windows-only binary alone.
+本仓库不应包含任何个人 API Key、Cookie、访问令牌或用户会话数据。图片自动分析插件的目标是让用户填写自己的 API，而不是使用开发者的 API。当前公开发行工程只包含空的示例配置。
 
-## Image Auto Analysis API Configuration
+### APK 和 macOS
 
-The copied package did not contain a clearly identifiable `step 3.7 flash` image auto-analysis plugin implementation. A placeholder user configuration file is included in the portable payload:
+当前可验证发行物是 Windows 安装包。APK 和 macOS 版本不能由这个 Windows WebView2 可执行文件直接转换出来，需要分别构建 Android WebView/Tauri Mobile 工程，以及 macOS WebView `.app`/`.dmg`/`.pkg` 工程。
 
-```json
-{
-  "imageAutoAnalysis": {
-    "model": "step-3.7-flash",
-    "apiKey": "",
-    "baseUrl": ""
-  }
-}
-```
+## English
 
-When the plugin source or exact package path is available, wire the plugin to read `imageAutoAnalysis.apiKey` and require users to provide their own key instead of embedding a developer key.
+This is the Windows installer release for DeepSeek Harness. End users should download `DeepSeekHarness-Setup.exe`, double-click it, and follow the setup wizard.
 
-## GitHub Sanitization
+This release provides a standard Windows installation flow, desktop and Start Menu shortcuts, uninstall registration, sanitized release documentation, and an example configuration file for the intended image auto-analysis API setup.
 
-Before pushing, exclude runtime data and generated artifacts:
-
-- `Harness.exe.WebView2/`
-- `dist/`
-- logs, local profiles, and any API keys
-- `node_modules/` unless this repository intentionally vendors the runtime
+The repository is not the official DeepSeek project and is not the full upstream DeepSeek Harness source tree. It is a sanitized Windows release workspace built for easier desktop distribution.
