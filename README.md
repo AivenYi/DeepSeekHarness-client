@@ -8,30 +8,43 @@
 [![WebView2](https://img.shields.io/badge/runtime-WebView2-5C2D91)](https://developer.microsoft.com/microsoft-edge/webview2/)
 [![DeepSeek](https://img.shields.io/badge/model-DeepSeek-4B6BFB)](https://www.deepseek.com/)
 
+English documentation: [README_EN.md](README_EN.md)
+
 DeepSeek Harness 是一个面向普通用户的 Windows 桌面客户端。用户不需要手动解压 zip、不需要运行命令，只需要下载 `DeepSeekHarness-Setup.exe`，双击安装包，然后一路点击安装向导即可完成安装。
 
 这个项目的核心目的很简单：让更多人更方便地使用 DeepSeek。DeepSeek 官方本身主要提供网页端体验，本项目基于已打包成功的 DeepSeek Harness 发行内容，补齐 Windows 客户端安装体验，并保留一个重要扩展方向：在聊天时，即使使用 DeepSeek 模型，也可以上传图片，并通过“图片自动分析”功能完成图像理解后再进入对话流程。
 
 > 当前仓库公开的是脱敏后的 Windows 安装发行工程，不是 DeepSeek 官方项目，也不是 DeepSeek Harness 的完整上游源码仓库。
 
-## 中文说明
+## 直接下载安装包
 
-### 项目来源
+普通用户请直接下载这个文件：
+
+[下载 DeepSeekHarness-Setup.exe](https://github.com/AivenYi/DeepSeekHarness/releases/download/v1.0.0-windows/DeepSeekHarness-Setup.exe)
+
+备用入口：
+
+- [GitHub Release 页面](https://github.com/AivenYi/DeepSeekHarness/releases/tag/v1.0.0-windows)
+- [全部 Releases](https://github.com/AivenYi/DeepSeekHarness/releases)
+
+下载后双击 `DeepSeekHarness-Setup.exe`，按安装向导一路点击下一步即可。安装完成后，可以从桌面快捷方式或开始菜单启动 `DeepSeek Harness`。
+
+## 项目来源
 
 - DeepSeek 品牌、模型与服务来源于 DeepSeek 官方：[https://www.deepseek.com/](https://www.deepseek.com/)
 - 桌面窗口运行依赖 Microsoft Edge WebView2：[https://developer.microsoft.com/microsoft-edge/webview2/](https://developer.microsoft.com/microsoft-edge/webview2/)
 - 当前仓库来源于本地已打包成功的 DeepSeek Harness Windows 版本，并参考了一个更轻量的 Rust/WebView2 启动器项目进行安装包整理。
 - 本仓库只保存安装脚本、发布文档、示例配置和脱敏后的发行说明；不会提交个人 API Key、Cookie、浏览器缓存或用户会话数据。
 
-### 为什么做这个
+## 为什么做这个
 
 DeepSeek 网页端已经能满足很多使用场景，但普通用户通常更希望有一个可以直接安装、从桌面或开始菜单启动的客户端。本项目把已有的 Web 端能力封装成 Windows 桌面安装包，降低使用门槛。
 
 另一个目标是增强多模态使用体验：用户在聊天时可以上传图片，由“图片自动分析”插件先完成图像分析，再把分析结果交给 DeepSeek 对话。这样可以在保持 DeepSeek 文本能力的同时，让图片输入也能参与工作流。
 
-### 用户如何安装
+## 用户如何安装
 
-1. 打开 GitHub Releases 页面。
+1. 点击上面的 [下载 DeepSeekHarness-Setup.exe](https://github.com/AivenYi/DeepSeekHarness/releases/download/v1.0.0-windows/DeepSeekHarness-Setup.exe)。
 2. 下载 `DeepSeekHarness-Setup.exe`。
 3. 双击 `DeepSeekHarness-Setup.exe`。
 4. 按安装向导点击“下一步”，选择安装目录。
@@ -40,7 +53,7 @@ DeepSeek 网页端已经能满足很多使用场景，但普通用户通常更�
 
 推荐普通用户只使用 `DeepSeekHarness-Setup.exe`。它是标准安装向导，会复制程序文件、创建快捷方式，并注册卸载入口。
 
-### 关于 API Key
+## 关于 API Key
 
 不要把个人 API Key 写入 GitHub 仓库、安装包、README、Issue、Release 说明或任何会公开的配置文件。
 
@@ -58,7 +71,7 @@ DeepSeek 网页端已经能满足很多使用场景，但普通用户通常更�
 
 图片自动分析插件的目标行为是让用户填写自己的 API，而不是使用开发者的 API。当前这个脱敏发行工程保留了示例配置和安全说明；如果要把“用户填写 API”的入口做成完整 UI，还需要在插件源码或插件配置界面里继续实现并验证。
 
-### 开发者如何重新构建安装包
+## 开发者如何重新构建安装包
 
 构建环境要求：
 
@@ -89,7 +102,7 @@ Set-Location J:\测试\DeepSeekHarness_release_work\packaging
 
 当前推荐面向最终用户发布 `DeepSeekHarness-Setup.exe`，因为它的安装体验更接近普通 Windows 软件：一路下一步、自动创建快捷方式、支持卸载。
 
-### 仓库脱敏规则
+## 仓库脱敏规则
 
 提交前必须确认不要包含以下内容：
 
@@ -102,29 +115,6 @@ Set-Location J:\测试\DeepSeekHarness_release_work\packaging
 
 建议每次提交前执行一次关键词扫描，至少覆盖 `sk-`、`AIza`、`Bearer`、`API_KEY`、`TOKEN`、`SECRET` 等模式。
 
-## English
-
-DeepSeek Harness is a Windows desktop client built from an already packaged DeepSeek Harness distribution. It wraps the web experience in a desktop installation flow so end users can download `DeepSeekHarness-Setup.exe`, double-click it, and finish installation through a normal wizard.
-
-This repository is published for convenience and distribution hygiene. It is not the official DeepSeek repository, and it is not the full upstream source tree of DeepSeek Harness.
-
-The project exists to make DeepSeek easier to use as a desktop application. It also documents the intended image auto-analysis workflow: users should be able to upload images during chat, let a plugin analyze the image first, and then continue the conversation with DeepSeek models.
-
-For end users, download the installer from GitHub Releases and run:
-
-```text
-DeepSeekHarness-Setup.exe
-```
-
-For developers, rebuild the Windows installer with Inno Setup:
-
-```powershell
-Set-Location J:\测试\DeepSeekHarness_release_work
-& "J:\innosetup\ISCC.exe" ".\packaging\DeepSeekHarness.iss"
-```
-
-Never commit personal API keys, browser profiles, cookies, WebView2 cache data, or generated local release artifacts.
-
 ## License
 
-See [LICENSE](LICENSE) for the license covering this repository's release scripts and project-specific files. Bundled third-party packages retain their own licenses and notices.
+详见 [LICENSE](LICENSE)。本仓库中的发布脚本和项目文档遵循该许可证；随包依赖的第三方组件仍遵循各自许可证和声明。
