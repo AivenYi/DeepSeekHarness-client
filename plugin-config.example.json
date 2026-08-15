@@ -1,0 +1,7 @@
+{
+  "imageAutoAnalysis": {
+    "model": "step-3.7-flash",
+    "apiKey": "",
+    "baseUrl": ""
+  }
+}

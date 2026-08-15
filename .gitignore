@@ -1,0 +1,13 @@
+Harness.exe.WebView2/
+dist/
+*.log
+*.tmp
+*.cache
+.env
+.env.*
+plugin-config.json
+profiles/
+sessions/
+credentials/
+secrets/
+node_modules/

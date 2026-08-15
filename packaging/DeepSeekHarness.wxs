@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="DeepSeek Harness" Language="2052" Version="1.0.0.0" Manufacturer="DeepSeek Harness" UpgradeCode="7D3FD47A-9B02-4D89-8A9F-0F2B8A09D3A1">
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perUser" />
+    <MediaTemplate EmbedCab="yes" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="LocalAppDataFolder">
+        <Directory Id="APPLICATIONFOLDER" Name="DeepSeekHarness" />
+      </Directory>
+    </Directory>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Component Id="MainComponent" Guid="2B91A5A5-CA84-4D9B-A7D2-3D2DCE2E8D8B">
+        <File Id="PortableZip" Source="..\dist\DeepSeekHarness-portable.zip" KeyPath="yes" />
+        <File Id="InstallScript" Source="install.ps1" />
+        <File Id="InstallCommand" Source="install.cmd" />
+      </Component>
+    </DirectoryRef>
+    <Feature Id="MainFeature" Title="DeepSeek Harness" Level="1">
+      <ComponentRef Id="MainComponent" />
+    </Feature>
+    <Property Id="COMSPEC" Value="[SystemFolder]cmd.exe" />
+    <CustomAction Id="RunInstaller" Property="COMSPEC" Execute="deferred" Impersonate="yes" Return="check" ExeCommand="/c &quot;[APPLICATIONFOLDER]install.cmd&quot;" />
+    <InstallExecuteSequence>
+      <Custom Action="RunInstaller" After="InstallFiles">NOT REMOVE</Custom>
+    </InstallExecuteSequence>
+  </Product>
+</Wix>
