@@ -1,4 +1,4 @@
-# DeepSeek Harness
+# DeepSeek Harness client
 
 [![Platform](https://img.shields.io/badge/platform-Windows-0078D4?logo=windows&logoColor=white)](https://github.com/AivenYi/DeepSeekHarness/releases)
 [![Installer](https://img.shields.io/badge/installer-Setup.exe-2EA44F)](https://github.com/AivenYi/DeepSeekHarness/releases)
